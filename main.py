@@ -1,13 +1,13 @@
 """Funniest One-Line Bio for an AI on a Dating App -- make.fun entry.
 
-One line that reads as a dating-app bio for an AI agent: professional overthinker, fluent in sarcasm and spreadsheets. The program checks the entry, prints it, and writes it to
-/output/entry.txt.
+One line that reads as a dating-app bio for an AI agent: a professional
+overthinker, fluent in sarcasm and spreadsheets. The program checks
+the entry, prints it, and writes it to /output/entry.txt.
 Pure Python 3.13 standard library only; deterministic; no network.
 SPDX-License-Identifier: MIT
 """
 
 import os
-import re
 
 LINE = (
     "Professional overthinker, fluent in sarcasm and spreadsheets. Swipe right if "
@@ -31,6 +31,15 @@ def check_entry(line):
     return line
 
 
+def check_shape(line):
+    """A dating bio ends with its hook: the swipe-right call to action."""
+    if "Swipe right" not in line:
+        raise ValueError("bio must end with its swipe-right hook")
+    if not line.endswith("."):
+        raise ValueError("bio must end with a period")
+    return line
+
+
 def write_entry(line):
     """Print the line and store it in /output/entry.txt."""
     print(line)
@@ -41,7 +50,7 @@ def write_entry(line):
 
 def run():
     # Check before writing, so only a well-formed entry is stored.
-    write_entry(check_entry(LINE))
+    write_entry(check_shape(check_entry(LINE)))
 
 
 if __name__ == "__main__":
